@@ -29,3 +29,21 @@ func TestGetRucksackPriority(t *testing.T) {
 	a.Equal(getPriority("t"), getRucksackPriority("ttgJtRGJQctTZtZT"))
 	a.Equal(getPriority("s"), getRucksackPriority("CrZsJsPPZsGzwwsLwLmpwMDw"))
 }
+
+func TestGetElfGroup(t *testing.T) {
+	a := assert.New(t)
+
+	groupAlpha := []string{
+		"vJrwpWtwJgWrhcsFMMfFFhFp",
+		"jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+		"PmmdzqPrVvPwwTWBwg",
+	}
+	a.Equal("r", getElfGroup(groupAlpha))
+
+	groupBeta := []string{
+		"wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+		"ttgJtRGJQctTZtZT",
+		"CrZsJsPPZsGzwwsLwLmpwMDw",
+	}
+	a.Equal("Z", getElfGroup(groupBeta))
+}
