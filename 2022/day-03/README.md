@@ -35,7 +35,6 @@ In the above example, the priority of the item type that appears in both compart
 
 Find the item type that appears in both compartments of each rucksack. _What is the sum of the priorities of those item types?_
 
-
 ## --- Part Two ---
 
 As you finish identifying the misplaced items, the Elves come to you with another issue.
@@ -48,7 +47,7 @@ Additionally, nobody wrote down which item type corresponds to each group's badg
 
 Every set of three lines in your list corresponds to a single group, but each group can have a different badge item type. So, in the above example, the first group's rucksacks are the first three lines:
 
-```
+```txt
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
@@ -56,7 +55,7 @@ PmmdzqPrVvPwwTWBwg
 
 And the second group's rucksacks are the next three lines:
 
-```
+```txt
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw

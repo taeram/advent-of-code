@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"sort"
 	"strconv"
 
@@ -10,12 +8,7 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		panic("Missing input file name")
-	}
-
-	// Read in the input file.
-	inputs := utils.ReadLines(os.Args[1])
+	inputs := utils.ReadInputFile()
 
 	// Add up all of the calories carried by each elf.
 	elfId := 0
@@ -36,19 +29,19 @@ func main() {
 	}
 
 	// Create a list, sorted by the number of calories, largest first.
-	var sortedCalories []int
+	sortedCalories := make([]int, 0, len(elfCalories))
 	for _, calories := range elfCalories {
 		sortedCalories = append(sortedCalories, calories)
 	}
 	sort.Sort(sort.Reverse(sort.IntSlice(sortedCalories)))
 
 	// Find the max calories carried by a single elf.
-	fmt.Printf("Max Calories: %d\n", sortedCalories[0])
+	utils.Logger("Max Calories: %d", sortedCalories[0])
 
 	// Find the total calories carried by the top three elves.
 	var topThreeCalories int
 	for i := 0; i < 3; i++ {
 		topThreeCalories += sortedCalories[i]
 	}
-	fmt.Printf("Top Three Calories: %d\n", topThreeCalories)
+	utils.Logger("Top Three Calories: %d", topThreeCalories)
 }

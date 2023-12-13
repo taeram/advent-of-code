@@ -7,6 +7,7 @@ import (
 )
 
 func TestGetPriority(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	a.Equal(1, getPriority("a"))
@@ -20,6 +21,7 @@ func TestGetPriority(t *testing.T) {
 }
 
 func TestGetRucksackPriority(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	a.Equal(getPriority("p"), getRucksackPriority("vJrwpWtwJgWrhcsFMMfFFhFp"))
@@ -31,6 +33,7 @@ func TestGetRucksackPriority(t *testing.T) {
 }
 
 func TestGetElfGroup(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	groupAlpha := []string{

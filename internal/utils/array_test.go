@@ -7,6 +7,7 @@ import (
 )
 
 func TestGetPriority(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	stringList := []string{"a", "b", "c"}

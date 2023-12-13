@@ -1,29 +1,24 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"strings"
 
 	"github.com/taeram/advent-of-code/internal/utils"
 )
 
-const priorityLowercase = 1
-const priorityUppercase = 27
+const (
+	priorityLowercase = 1
+	priorityUppercase = 27
+)
 
 func main() {
-	if len(os.Args) < 2 {
-		panic("Missing input file name")
-	}
-
-	// Read in the input file.
-	inputs := utils.ReadLines(os.Args[1])
+	inputs := utils.ReadInputFile()
 
 	priority := 0
 	for _, contents := range inputs {
 		priority += getRucksackPriority(contents)
 	}
-	fmt.Printf("Total Priority: %d\n", priority)
+	utils.Logger("Total Priority: %d", priority)
 
 	groupPriority := 0
 	for i := 0; i < len(inputs); i += 3 {
@@ -39,8 +34,7 @@ func main() {
 		elfGroup := getElfGroup(rucksacks)
 		groupPriority += getPriority(elfGroup)
 	}
-	fmt.Printf("Group Priority: %d\n", groupPriority)
-
+	utils.Logger("Group Priority: %d", groupPriority)
 }
 
 func getRucksackPriority(contents string) int {

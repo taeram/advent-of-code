@@ -7,6 +7,7 @@ import (
 )
 
 func TestGetChoiceInt(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	a.Equal(getChoiceInt("A"), 0)
@@ -18,6 +19,7 @@ func TestGetChoiceInt(t *testing.T) {
 }
 
 func TestGetScore(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	a.Equal(getScore("A", "Y"), scorePaper+scoreWin)
@@ -26,6 +28,7 @@ func TestGetScore(t *testing.T) {
 }
 
 func TestGetChoice(t *testing.T) {
+	t.Parallel()
 	a := assert.New(t)
 
 	a.Equal(getChoice("A", "Y"), "X")

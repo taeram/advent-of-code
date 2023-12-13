@@ -1,0 +1,109 @@
+run:
+  # Allow multiple parallel golangci-lint instances running.
+  allow-parallel-runners: true
+
+output:
+  # Sort results by: filepath, line and column.
+  sort-results: true
+
+linters:
+  # Disable all linters so we can enable specific ones.
+  disable-all: true
+
+  enable:
+    - asciicheck # Check that your code does not contain non-ASCII identifiers.
+    - bidichk # Checks for dangerous unicode character sequences.
+    - containedctx # Detect struct contained context.Context fields.
+    - contextcheck # Check if function uses a non-inherited context.
+    - decorder # Check declaration order and count of types, constants, variables and functions.
+    - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f())
+    - dupl # Code clone detection
+    - durationcheck # Check for two durations multiplied together.
+    - errcheck # Check for unchecked errors in go programs.
+    - errchkjson # Checks types passed to the json encoding functions. Reports unsupported types or if the check can be omitted.
+    - errname # Checks that sentinel errors are prefixed with the `Err` and error types are suffixed with the `Error`.
+    - errorlint # Find code that causes issues with error wrapping scheme introduced in Go 1.13.
+    - execinquery # Query string checker which warns on use of db.Query().
+    - exhaustive # Check exhaustiveness of enum switch statements.
+    - exportloopref # Check for pointers to enclosing loop variables.
+    - forbidigo # Forbids specific identifiers.
+    - forcetypeassert # Finds forced type assertions.
+    - gci # Ensure golang package import order is always deterministic.
+    - gochecknoglobals # Check that no global variables exist.
+    - gochecknoinits # Check that no init functions are present.
+    - goconst # Find repeated strings that could be replaced by a constant.
+    - gocritic # Check for bugs, performance and style issues.
+    - godot # Check if comments end in a period.
+    - godox # Detect fix me, to do and other comment keywords.
+    - gofmt # Check whether code was gofmt-ed.
+    - gofumpt # Checks whether code was gofumpt-ed.
+    - gomnd # Detect magic numbers.
+    - gomoddirectives # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod.
+    - goprintffuncname # Checks that printf-like functions are named with `f` at the end.
+    - gosec # Inspect source code for security issues.
+    - gosimple # Simplify code.
+    - govet # Report suspicious constructs.
+    - grouper # Analyze expression groups.
+    - importas # Enforce consistent import aliases.
+    - ineffassign # Detect unused assignments to existing variables.
+    - lll # Report long lines.
+    - makezero # Find slice declarations with non-zero initial length.
+    - misspell # Find commonly misspelled English words in comments.
+    - nakedret # Finds naked returns in functions greater than a specified function length.
+    - nilerr # Find code where we return nil even if it checks that the error is not nil.
+    - nilnil # Checks that there is no simultaneous return of `nil` error and an invalid value.
+    - noctx # Find if we send http requests without context.Context.
+    - nolintlint # Reports ill-formed or insufficient nolint directives.
+    - nonamedreturns # Reports all named returns.
+    - nosprintfhostport # Check for misuse of sprintf to construct a host with port in a URL.
+    - paralleltest # Detect missing usage of t.Parallel() method in your tests.
+    - prealloc # Find slice declarations that could potentially be pre-allocated.
+    - predeclared # Find code that shadows one of Go's predeclared identifiers.
+    - promlinter # Check Prometheus metrics naming via promlint.
+    - staticcheck # Finds bugs and performance issues.
+    - tenv # Detect using os.Setenv instead of t.Setenv since Go1.17.
+    - thelper # Detect golang test helpers without t.Helper() call and checks the consistency of test helpers.
+    - tparallel # Detect inappropriate usage of t.Parallel() method in your Go test codes.
+    - typecheck # Parse and type-check code.
+    - unconvert # Remove unnecessary type conversions.
+    - unparam # Reports unused function parameters.
+    - unused # Checks for unused constants, variables, functions and types.
+    - varnamelen # Check that the length of a variable's name matches its scope.
+    - whitespace # Detect leading and trailing whitespace.
+
+linters-settings:
+  decorder:
+    dec-order:
+      - type
+      - const
+      - var
+      - func
+    disable-dec-order-check: false
+
+  godot:
+    scope: all
+    period: true
+    capital: true
+
+  gofumpt:
+    lang-version: "1.18"
+
+  importas:
+    # Do not allow unaliased imports of aliased packages.
+    no-unaliased: true
+    # Do not allow non-required aliases.
+    no-extra-aliases: false
+
+  lll:
+    line-length: 160
+
+  varnamelen:
+    # Optional list of variable declarations that should be ignored completely. (defaults to empty list)
+    # Entries must be in one of the following forms (see below for examples):
+    # - for variables, parameters, named return values, method receivers, or type parameters:
+    #   <name> <type>  (<type> can also be a pointer/slice/map/chan/...)
+    # - for constants: const <name>
+    ignore-decls:
+      - a *assert.Assertions
+      - i int
+      - t testing.T

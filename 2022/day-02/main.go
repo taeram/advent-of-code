@@ -1,32 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"strings"
 
 	"github.com/taeram/advent-of-code/internal/utils"
 )
 
-const choiceRock = 0
-const choicePaper = 1
-const choiceScissors = 2
-const choiceDraw = 1
-const choiceWin = 2
-const scoreRock = 1
-const scorePaper = 2
-const scoreScissors = 3
-const scoreLose = 0
-const scoreDraw = 3
-const scoreWin = 6
+const (
+	choiceRock     = 0
+	choicePaper    = 1
+	choiceScissors = 2
+	choiceDraw     = 1
+	choiceWin      = 2
+	scoreRock      = 1
+	scorePaper     = 2
+	scoreScissors  = 3
+	scoreLose      = 0
+	scoreDraw      = 3
+	scoreWin       = 6
+)
 
 func main() {
-	if len(os.Args) < 2 {
-		panic("Missing input file name")
-	}
-
-	// Read in the input file.
-	inputs := utils.ReadLines(os.Args[1])
+	inputs := utils.ReadInputFile()
 
 	var scorePart01 int
 	var scorePart02 int
@@ -41,8 +36,8 @@ func main() {
 		scorePart01 += getScore(opponentChoice, meChoice)
 		scorePart02 += getScore(opponentChoice, getChoice(opponentChoice, meChoice))
 	}
-	fmt.Printf("Part 01 - Total Score: %d\n", scorePart01)
-	fmt.Printf("Part 02 - Total Score: %d\n", scorePart02)
+	utils.Logger("Part 01 - Total Score: %d", scorePart01)
+	utils.Logger("Part 02 - Total Score: %d", scorePart02)
 }
 
 // getChoiceInt returns an integer for the specified character.
@@ -62,6 +57,7 @@ func getScore(opponentChoiceStr string, meChoiceStr string) int {
 	meChoice := getChoiceInt(meChoiceStr)
 
 	var score int
+	//nolint: gocritic
 	if meChoice == opponentChoice {
 		score += scoreDraw
 	} else if (meChoice == choiceRock && opponentChoice == choiceScissors) ||
@@ -72,11 +68,12 @@ func getScore(opponentChoiceStr string, meChoiceStr string) int {
 		score += scoreLose
 	}
 
-	if meChoice == choiceRock {
+	switch meChoice {
+	case choiceRock:
 		score += scoreRock
-	} else if meChoice == choiceScissors {
+	case choiceScissors:
 		score += scoreScissors
-	} else if meChoice == choicePaper {
+	case choicePaper:
 		score += scorePaper
 	}
 
@@ -89,6 +86,7 @@ func getChoice(opponentChoiceStr string, winLoseDrawStr string) string {
 	winLoseDraw := getChoiceInt(winLoseDrawStr)
 	var meChoice int
 
+	//nolint: gocritic
 	if winLoseDraw == choiceDraw {
 		meChoice = opponentChoice
 	} else if winLoseDraw == choiceWin {
@@ -100,12 +98,13 @@ func getChoice(opponentChoiceStr string, winLoseDrawStr string) string {
 			meChoice = choiceRock
 		}
 	} else {
-		if opponentChoice == choiceRock {
+		switch opponentChoice {
+		case choiceRock:
 			meChoice = choiceScissors
-		} else if opponentChoice == choicePaper {
-			meChoice = choiceRock
-		} else if opponentChoice == choiceScissors {
+		case choiceScissors:
 			meChoice = choicePaper
+		case choicePaper:
+			meChoice = choiceRock
 		}
 	}
 
