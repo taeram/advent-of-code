@@ -1,10 +1,13 @@
 ![test workflow](https://github.com/taeram/advent-of-code/actions/workflows/test.yml/badge.svg)
 
 # advent-of-code
+
 Solutions for https://adventofcode.com
 
 ## Usage
+
 To run a specific day, run: `make run day=2022/day-01`
+
 * This will use the `input.txt` file in specified directory.
 
 To test a specific day, run: `make test day=2022/day-01`
