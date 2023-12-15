@@ -10,9 +10,9 @@ jobs:
         with:
           check-latest: true
           go-version-file: 'go.mod'
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
       - name: Install deps
         run: go get ./...
-      - name: Lint
-        run: golangci-lint -v run ./...
       - name: Test
         run: go test -v ./...
