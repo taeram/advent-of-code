@@ -1,5 +1,5 @@
-.PHONY: run build update docker docker-build docker-environment generate generate-docs lint ready test test-bench test-integration test-generate tidy chore
-.SILENT: run build update docker docker-build docker-environment generate generate-docs lint ready test test-bench test-integration test-generate tidy chore
+.PHONY: lint ready run test tidy update workflow
+.SILENT: lint ready run test tidy update workflow
 
 SHELL=/bin/bash
 
@@ -21,3 +21,6 @@ update:
 	rm -f go.sum
 	go get -u ./...
 	go mod tidy
+
+workflow:
+	act --job test
