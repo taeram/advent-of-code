@@ -11,7 +11,7 @@ jobs:
           check-latest: true
           go-version-file: 'go.mod'
       - name: Install deps
-        run: go get .
+        run: go get ./...
       - name: Lint
         run: golangci-lint -v run ./...
       - name: Test
