@@ -28,14 +28,19 @@ const (
 
 func main() {
 	ValidGameIds := 0
+	GameSetPowerSum := 0
 	inputs := utils.ReadInputFile()
 	for _, input := range inputs {
 		game := GetGame(input)
 		if IsValidGame(game) {
 			ValidGameIds += GetGameId(input)
 		}
+
+		red, green, blue := GetMinimumSet(game)
+		GameSetPowerSum += red * green * blue
 	}
 	utils.Logger("Valid Game IDs sum: %d", ValidGameIds)
+	utils.Logger("Game Set Power sum: %d", GameSetPowerSum)
 }
 
 func GetGameId(input string) int {
@@ -103,10 +108,30 @@ func IsValidGame(game Game) bool {
 		if set.red > numRedCubes ||
 			set.green > numGreenCubes ||
 			set.blue > numBlueCubes {
-					isValid = false
-					break
-				}
-			}
+			isValid = false
+			break
+		}
+	}
 
 	return isValid
+}
+
+func GetMinimumSet(game Game) (int, int, int) {
+	red := 0
+	green := 0
+	blue := 0
+
+	for _, set := range game.sets {
+		if set.red > red {
+			red = set.red
+		}
+		if set.green > green {
+			green = set.green
+		}
+		if set.blue > blue {
+			blue = set.blue
+		}
+	}
+
+	return red, green, blue
 }
