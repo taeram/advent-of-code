@@ -1,3 +1,5 @@
+![test workflow](https://github.com/taeram/advent-of-code/actions/workflows/test.yml/badge.svg)
+
 # advent-of-code
 Solutions for https://adventofcode.com
 
