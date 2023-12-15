@@ -2,6 +2,11 @@ run:
   # Allow multiple parallel golangci-lint instances running.
   allow-parallel-runners: true
 
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters: [gochecknoglobals]
+
 output:
   # Sort results by: filepath, line and column.
   sort-results: true
