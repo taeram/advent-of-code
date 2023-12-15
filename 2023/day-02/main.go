@@ -9,6 +9,17 @@ import (
 	"github.com/taeram/advent-of-code/internal/utils"
 )
 
+type Game struct {
+	id   int
+	sets []Set
+}
+
+type Set struct {
+	red   int
+	green int
+	blue  int
+}
+
 const (
 	numRedCubes   = 12
 	numGreenCubes = 13
@@ -19,7 +30,8 @@ func main() {
 	ValidGameIds := 0
 	inputs := utils.ReadInputFile()
 	for _, input := range inputs {
-		if IsValidBag(input) {
+		game := GetGame(input)
+		if IsValidGame(game) {
 			ValidGameIds += GetGameId(input)
 		}
 	}
@@ -40,16 +52,23 @@ func GetGameId(input string) int {
 	return gameId
 }
 
-func IsValidBag(input string) bool {
+func GetGame(input string) Game {
+	game := Game{
+		id:   GetGameId(input),
+		sets: []Set{},
+	}
+
 	// Strip off "Game ##: ".
 	input = regexp.MustCompile(`^Game \d+:`).ReplaceAllString(input, "")
 
-	isValid := true
-	sets := regexp.MustCompile(`;`).Split(input, -1)
-	for _, set := range sets {
-		set = strings.Trim(set, " ")
+	// Extract the sets.
+	setInputs := regexp.MustCompile(`;`).Split(input, -1)
+	for _, setInput := range setInputs {
+		set := Set{}
+		setInput = strings.Trim(setInput, " ")
 
-		cubes := regexp.MustCompile(`,`).Split(set, -1)
+		// Extract the cubes.
+		cubes := regexp.MustCompile(`,`).Split(setInput, -1)
 		for _, cube := range cubes {
 			matches := regexp.MustCompile(`(\d+) (\w+)`).FindSubmatch([]byte(cube))
 			if len(matches) == 0 {
@@ -64,23 +83,30 @@ func IsValidBag(input string) bool {
 			cubeColor := string(matches[2])
 			switch cubeColor {
 			case "red":
-				if numCubes > numRedCubes {
-					isValid = false
-					break
-				}
+				set.red = numCubes
 			case "green":
-				if numCubes > numGreenCubes {
-					isValid = false
-					break
-				}
+				set.green = numCubes
 			case "blue":
-				if numCubes > numBlueCubes {
+				set.blue = numCubes
+			}
+		}
+
+		game.sets = append(game.sets, set)
+	}
+
+	return game
+}
+
+func IsValidGame(game Game) bool {
+	isValid := true
+	for _, set := range game.sets {
+		if set.red > numRedCubes ||
+			set.green > numGreenCubes ||
+			set.blue > numBlueCubes {
 					isValid = false
 					break
 				}
 			}
-		}
-	}
 
 	return isValid
 }
