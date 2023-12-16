@@ -4,6 +4,10 @@
 
 Solutions for https://adventofcode.com
 
+## Setup
+
+Run `./bin/setup.sh` to install the local development dependencies.
+
 ## Usage
 
 To run a specific day, run: `make run day=2022/day-01`

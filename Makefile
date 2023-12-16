@@ -1,5 +1,5 @@
-.PHONY: lint ready run test tidy update workflow
-.SILENT: lint ready run test tidy update workflow
+.PHONY: lint ready run test tidy update
+.SILENT: lint ready run test tidy update
 
 SHELL=/bin/bash
 
@@ -21,6 +21,3 @@ update:
 	rm -f go.sum
 	go get -u ./...
 	go mod tidy
-
-workflow:
-	act --job test
